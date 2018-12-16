@@ -1,14 +1,7 @@
-import faker from "faker";
+import http from "./httpService";
 
 export function getMembers() {
-  const members = [];
-  for (let i = 0; i < 100000; i++) {
-    members.push({
-      _id: i,
-      firstname: faker.name.firstName(),
-      name: faker.name.lastName(),
-      status: "Active"
-    });
-  }
-  return members;
+  const membersEndPoint =
+    "https://poc-react-member-search-api.herokuapp.com/api/members";
+  return http.get(membersEndPoint);
 }

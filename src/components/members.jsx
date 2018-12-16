@@ -16,7 +16,7 @@ export default class Movies extends Component {
   };
 
   async componentDidMount() {
-    const members = getMembers();
+    const { data: members } = await getMembers();
     this.setState({ members });
   }
 
@@ -61,7 +61,7 @@ export default class Movies extends Component {
     const { length: count } = this.state.members;
     const { pagesSize, currentPage, sortColumn, searchQuery } = this.state;
 
-    if (count === 0) return <p>There is no members in the database</p>;
+    if (count === 0) return <p>Loading data...</p>;
 
     const { totalCount, data } = this.getPagedData();
 
