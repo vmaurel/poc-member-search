@@ -4,7 +4,6 @@ import Members from "./components/members";
 import NavBar from "./components/common/navbar";
 import { Route, Switch, Redirect } from "react-router-dom";
 import NotFound from "./components/notfound";
-import "react-toastify/dist/ReactToastify.css";
 
 class App extends Component {
   render() {
