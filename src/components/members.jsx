@@ -9,7 +9,7 @@ import { getMembers } from "../services/membersService";
 export default class Movies extends Component {
   state = {
     members: [],
-    pagesSize: 500,
+    pagesSize: 100,
     currentPage: 1,
     searchQuery: "",
     sortColumn: { path: "firstname", order: "asc" }
