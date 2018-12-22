@@ -11,7 +11,8 @@ export default class Movies extends Component {
     members: [],
     pagesSize: 100,
     currentPage: 1,
-    searchQuery: "",
+    searchQueryFirstName: "",
+    searchQueryName: "",
     sortColumn: { path: "firstname", order: "asc" }
   };
 
@@ -24,8 +25,20 @@ export default class Movies extends Component {
     this.setState({ currentPage: page });
   };
 
-  handleSearch = query => {
-    this.setState({ searchQuery: query, selectedGenre: null, currentPage: 1 });
+  handleFilterByFirstName = query => {
+    this.setState({
+      searchQueryFirstName: query,
+      selectedGenre: null,
+      currentPage: 1
+    });
+  };
+
+  handleFilterByName = query => {
+    this.setState({
+      searchQueryName: query,
+      selectedGenre: null,
+      currentPage: 1
+    });
   };
 
   handleSort = sortColumn => {
@@ -37,17 +50,21 @@ export default class Movies extends Component {
       members: allMembers,
       pagesSize,
       currentPage,
-      searchQuery,
+      searchQueryFirstName,
+      searchQueryName,
       sortColumn
     } = this.state;
     console.log("Members 1", allMembers[0]);
     let filtered = allMembers;
 
-    if (searchQuery)
-      filtered = allMembers.filter(
-        m =>
-          m.firstname.toLowerCase().startsWith(searchQuery.toLowerCase()) ||
-          m.name.toLowerCase().startsWith(searchQuery.toLowerCase())
+    if (searchQueryFirstName)
+      filtered = allMembers.filter(m =>
+        m.firstname.toLowerCase().startsWith(searchQueryFirstName.toLowerCase())
+      );
+
+    if (searchQueryName)
+      filtered = filtered.filter(m =>
+        m.name.toLowerCase().startsWith(searchQueryName.toLowerCase())
       );
 
     const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order]);
@@ -59,7 +76,13 @@ export default class Movies extends Component {
 
   render() {
     const { length: count } = this.state.members;
-    const { pagesSize, currentPage, sortColumn, searchQuery } = this.state;
+    const {
+      pagesSize,
+      currentPage,
+      sortColumn,
+      searchQueryFirstName,
+      searchQueryName
+    } = this.state;
 
     if (count === 0) return <p>Loading data...</p>;
 
@@ -70,7 +93,18 @@ export default class Movies extends Component {
         <div className="col-3" />
         <div className="col">
           <p>There are {totalCount} members</p>
-          <SearchBox value={searchQuery} onChange={this.handleSearch} />
+          <SearchBox
+            placeholer="First Name"
+            name="searchQueryFirstName"
+            value={searchQueryFirstName}
+            onChange={this.handleFilterByFirstName}
+          />
+          <SearchBox
+            placeholer="Name"
+            name="searchQueryName"
+            value={searchQueryName}
+            onChange={this.handleFilterByName}
+          />
           <MembersTable
             members={data}
             sortColumn={sortColumn}

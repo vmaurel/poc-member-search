@@ -1,5 +1,5 @@
-import React, { Component } from "../../../../../../Library/Caches/typescript/2.9/node_modules/@types/react";
-import _ from "../../../../../../Library/Caches/typescript/2.9/node_modules/@types/lodash";
+import React, { Component } from "react";
+import _ from "lodash";
 
 export default class TableBody extends Component {
   renderCell = (item, column) => {

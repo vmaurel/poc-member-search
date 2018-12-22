@@ -1,4 +1,4 @@
-import React from "../../../../../Library/Caches/typescript/2.9/node_modules/@types/react";
+import React from "react";
 
 const NotFound = () => {
   return <h1>404 - Not found</h1>;

@@ -1,15 +1,15 @@
-import React from "../../../../../../Library/Caches/typescript/2.9/node_modules/@types/react";
+import React from "react";
 
-const SearchBox = ({ value, onChange }) => {
+const SearchBox = ({ placeholer, name, value, onChange }) => {
   return (
     <div className="form-group">
       <input
         className="form-control my-3"
         value={value}
         type="text"
-        name="query"
+        name={name}
+        placeholder={placeholer}
         onChange={e => onChange(e.currentTarget.value)}
-        placeholder="Search..."
       />
     </div>
   );
