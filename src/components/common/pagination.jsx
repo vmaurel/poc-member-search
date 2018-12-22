@@ -1,6 +1,6 @@
-import React from "react";
-import PropTypes from "prop-types";
-import _ from "lodash";
+import React from "../../../../../../Library/Caches/typescript/2.9/node_modules/@types/react";
+import PropTypes from "../../../../../../Library/Caches/typescript/2.9/node_modules/@types/prop-types";
+import _ from "../../../../../../Library/Caches/typescript/2.9/node_modules/@types/lodash";
 
 const Pagination = ({ itemsCount, pagesSize, onPageChange, currentPage }) => {
   const pagesCount = Math.ceil(itemsCount / pagesSize);
