@@ -25,17 +25,9 @@ export default class Movies extends Component {
     this.setState({ currentPage: page });
   };
 
-  handleFilterByFirstName = query => {
+  handleFilter = query => {
     this.setState({
-      searchQueryFirstName: query,
-      selectedGenre: null,
-      currentPage: 1
-    });
-  };
-
-  handleFilterByName = query => {
-    this.setState({
-      searchQueryName: query,
+      searchQuery: query,
       selectedGenre: null,
       currentPage: 1
     });
@@ -50,22 +42,22 @@ export default class Movies extends Component {
       members: allMembers,
       pagesSize,
       currentPage,
-      searchQueryFirstName,
-      searchQueryName,
+      searchQuery,
       sortColumn
     } = this.state;
     console.log("Members 1", allMembers[0]);
     let filtered = allMembers;
-
-    if (searchQueryFirstName)
-      filtered = allMembers.filter(m =>
-        m.firstname.toLowerCase().startsWith(searchQueryFirstName.toLowerCase())
+    if (searchQuery) {
+      filtered = allMembers.filter(
+        m =>
+          (m.firstname.toLowerCase() + " " + m.name.toLowerCase()).startsWith(
+            searchQuery.toLowerCase()
+          ) ||
+          (m.name.toLowerCase() + " " + m.firstname.toLowerCase()).startsWith(
+            searchQuery.toLowerCase()
+          )
       );
-
-    if (searchQueryName)
-      filtered = filtered.filter(m =>
-        m.name.toLowerCase().startsWith(searchQueryName.toLowerCase())
-      );
+    }
 
     const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order]);
 
@@ -76,13 +68,7 @@ export default class Movies extends Component {
 
   render() {
     const { length: count } = this.state.members;
-    const {
-      pagesSize,
-      currentPage,
-      sortColumn,
-      searchQueryFirstName,
-      searchQueryName
-    } = this.state;
+    const { pagesSize, currentPage, sortColumn, searchQuery } = this.state;
 
     if (count === 0) return <p>Loading data...</p>;
 
@@ -93,16 +79,10 @@ export default class Movies extends Component {
         <div className="col-8">
           <p>There are {totalCount} members</p>
           <SearchBox
-            placeholer="First Name"
-            name="searchQueryFirstName"
-            value={searchQueryFirstName}
-            onChange={this.handleFilterByFirstName}
-          />
-          <SearchBox
-            placeholer="Name"
-            name="searchQueryName"
-            value={searchQueryName}
-            onChange={this.handleFilterByName}
+            placeholer="Search"
+            name="searchQuery"
+            value={searchQuery}
+            onChange={this.handleFilter}
           />
           <MembersTable
             members={data}
