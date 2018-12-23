@@ -9,7 +9,7 @@ import { getMembers } from "../services/membersService";
 export default class Movies extends Component {
   state = {
     members: [],
-    pagesSize: 100,
+    pagesSize: 50,
     currentPage: 1,
     searchQueryFirstName: "",
     searchQueryName: "",
@@ -90,8 +90,7 @@ export default class Movies extends Component {
 
     return (
       <div className="row">
-        <div className="col-3" />
-        <div className="col">
+        <div className="col-8">
           <p>There are {totalCount} members</p>
           <SearchBox
             placeholer="First Name"
