@@ -3,13 +3,14 @@ import Pagination from "./common/pagination";
 import { paginate } from "../utils/paginate";
 import SearchBox from "./common/searchBox";
 import MembersTable from "./membersTable";
+import Select from "./common/select";
 import _ from "lodash";
 import { getMembers } from "../services/membersService";
 
 export default class Movies extends Component {
   state = {
     members: [],
-    pagesSize: 15,
+    pagesSize: 10,
     currentPage: 1,
     searchQueryFirstName: "",
     searchQueryName: "",
@@ -23,6 +24,10 @@ export default class Movies extends Component {
 
   handlePageChanged = page => {
     this.setState({ currentPage: page });
+  };
+
+  handlePageSizeChanged = pagesSize => {
+    this.setState({ pagesSize: parseInt(pagesSize, 10) });
   };
 
   handleFilter = query => {
@@ -69,7 +74,13 @@ export default class Movies extends Component {
   render() {
     const { length: count } = this.state.members;
     const { pagesSize, currentPage, sortColumn, searchQuery } = this.state;
-
+    const pagesSizes = [
+      { name: "10", _id: 10 },
+      { name: "25", _id: 25 },
+      { name: "50", _id: 50 },
+      { name: "100", _id: 100 },
+      { name: "200", _id: 200 }
+    ];
     if (count === 0) return <p>Loading data...</p>;
 
     const { totalCount, data } = this.getPagedData();
@@ -78,12 +89,31 @@ export default class Movies extends Component {
       <div className="row">
         <div className="col-8">
           <p>There are {totalCount} members</p>
-          <SearchBox
-            placeholer="Search"
-            name="searchQuery"
-            value={searchQuery}
-            onChange={this.handleFilter}
-          />
+          <div className="row">
+            <div className="col">
+              <SearchBox
+                placeholer="Search"
+                name="searchQuery"
+                value={searchQuery}
+                onChange={this.handleFilter}
+              />
+            </div>
+            <div className="col-2">
+              <Select
+                label=""
+                name="pageSize"
+                options={pagesSizes}
+                value={pagesSize}
+                onChange={this.handlePageSizeChanged}
+                style={{
+                  width: 80,
+                  display: "ïnline-block",
+                  "margin-top": -8
+                }}
+              />
+            </div>
+          </div>
+
           <MembersTable
             members={data}
             sortColumn={sortColumn}

@@ -1,4 +1,4 @@
-import React from "../../../../../../Library/Caches/typescript/2.9/node_modules/@types/react";
+import React from "react";
 
 const Select = ({
   name,
@@ -8,12 +8,20 @@ const Select = ({
   value,
   valueProperty,
   textProperty,
+  onChange,
   ...rest
 }) => {
   return (
     <div className="form-group">
       <label htmlFor={name}>{label}</label>
-      <select id={name} name={name} className="form-control" {...rest}>
+      <select
+        id={name}
+        name={name}
+        className="form-control"
+        onChange={e => onChange(e.currentTarget.value)}
+        value={value}
+        {...rest}
+      >
         <option value="" key="" />
         {options.map(item => (
           <option key={item[valueProperty]} value={item[valueProperty]}>
