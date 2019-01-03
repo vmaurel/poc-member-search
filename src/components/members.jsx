@@ -55,12 +55,12 @@ export default class Movies extends Component {
     if (searchQuery) {
       filtered = allMembers.filter(
         m =>
-          (m.firstname.toLowerCase() + " " + m.name.toLowerCase()).startsWith(
+          (m.firstname.toLowerCase() + " " + m.name.toLowerCase()).indexOf(
             searchQuery.toLowerCase()
-          ) ||
-          (m.name.toLowerCase() + " " + m.firstname.toLowerCase()).startsWith(
+          ) === 0 ||
+          (m.name.toLowerCase() + " " + m.firstname.toLowerCase()).indexOf(
             searchQuery.toLowerCase()
-          )
+          ) === 0
       );
     }
 
