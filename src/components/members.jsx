@@ -107,7 +107,7 @@ export default class Movies extends Component {
                 onChange={this.handlePageSizeChanged}
                 style={{
                   width: 80,
-                  display: "ïnline-block",
+                  display: "inline-block",
                   "margin-top": -8
                 }}
               />
